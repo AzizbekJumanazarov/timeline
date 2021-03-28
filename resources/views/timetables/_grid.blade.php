@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <h3 class="card-title">Bordered Table</h3>
+        <h3 class="card-title">Table</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -8,63 +8,31 @@
             <thead>
             <tr>
                 <th style="width: 10px">#</th>
-                <th>Task</th>
-                <th>Progress</th>
-                <th style="width: 40px">Label</th>
+                <th>Teacher</th>
+                <th>Subject</th>
+                <th>Group</th>
+                <th>Room</th>
+                <th>Start</th>
+                <th>Finish</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>1.</td>
-                <td>Update software</td>
-                <td>
-                    <div class="progress progress-xs">
-                        <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                    </div>
-                </td>
-                <td><span class="badge bg-danger">55%</span></td>
-            </tr>
-            <tr>
-                <td>2.</td>
-                <td>Clean database</td>
-                <td>
-                    <div class="progress progress-xs">
-                        <div class="progress-bar bg-warning" style="width: 70%"></div>
-                    </div>
-                </td>
-                <td><span class="badge bg-warning">70%</span></td>
-            </tr>
-            <tr>
-                <td>3.</td>
-                <td>Cron job running</td>
-                <td>
-                    <div class="progress progress-xs progress-striped active">
-                        <div class="progress-bar bg-primary" style="width: 30%"></div>
-                    </div>
-                </td>
-                <td><span class="badge bg-primary">30%</span></td>
-            </tr>
-            <tr>
-                <td>4.</td>
-                <td>Fix and squish bugs</td>
-                <td>
-                    <div class="progress progress-xs progress-striped active">
-                        <div class="progress-bar bg-success" style="width: 90%"></div>
-                    </div>
-                </td>
-                <td><span class="badge bg-success">90%</span></td>
-            </tr>
+                @foreach($list as $item)
+                    <tr>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->teacher->full_name }}</td>
+                        <td>{{ $item->subject->name }}</td>
+                        <td>{{ $item->group->name }}</td>
+                        <td>{{ $item->room->number }} <sup title="Floor">{{ $item->room->floor }}</sup></td>
+                        <td>{{ $item->begin_time }}</td>
+                        <td>{{ $item->end_time }}</td>
+                    </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
     <!-- /.card-body -->
     <div class="card-footer clearfix">
-        <ul class="pagination pagination-sm m-0 float-right">
-            <li class="page-item"><a class="page-link" href="#">«</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">»</a></li>
-        </ul>
+        {{ $list->appends(request()->all())->links() }}
     </div>
 </div>
